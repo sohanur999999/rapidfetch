@@ -1,0 +1,33 @@
+# Build output
+dist/
+artifacts/
+publish/
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# Local tools and test output
+tools/yt-dlp/
+tools/ffmpeg/
+*.log
+*.tmp
+*.part
+*.bak
+
+# Local app state
+downloads.json
+settings.json
+captureHistory.json
+
+# Browser test profiles
+.chrome-profile/
+.edge-profile/
+rf-*-profile/
+rf-*-ext/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

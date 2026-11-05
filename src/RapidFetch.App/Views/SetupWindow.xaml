@@ -1,0 +1,184 @@
+<Window x:Class="RapidFetch.App.Views.SetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RapidFetch Setup"
+        Width="780" Height="660"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
+
+    <Border Margin="14" Background="{DynamicResource Bg}"
+            BorderBrush="{DynamicResource Border}" BorderThickness="1" CornerRadius="14">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="24" ShadowDepth="4" Opacity="0.45" Color="Black" />
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="72" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="92" />
+            </Grid.RowDefinitions>
+
+            <!-- title bar -->
+            <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Header_MouseDown">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="24,0,0,0">
+                    <Border Width="38" Height="38" CornerRadius="10"
+                            Background="{DynamicResource AccentSoft}">
+                        <Image Source="Assets/logo.png" Width="24" Height="24"
+                               RenderOptions.BitmapScalingMode="HighQuality" />
+                    </Border>
+                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="RapidFetch" FontSize="17" FontWeight="SemiBold" />
+                        <TextBlock Text="Setup" Style="{StaticResource Caption}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Button x:Name="CloseButton" Style="{StaticResource IconButton}"
+                        Content="&#xE8BB;" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Margin="0,0,18,0" Click="Close_Click" ToolTip="Close" />
+            </Grid>
+
+            <!-- setup form -->
+            <ScrollViewer x:Name="SetupPanel" Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                          Padding="32,4,32,8">
+                <StackPanel>
+                    <TextBlock Text="Install RapidFetch" Style="{StaticResource H1}" />
+                    <TextBlock Margin="0,5,0,0" Foreground="{DynamicResource Muted}"
+                               TextWrapping="Wrap"
+                               Text="A free, modern download manager for Windows. Per-user install, no administrator required." />
+
+                    <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                        <Border Style="{StaticResource Pill}" Margin="0,0,6,0">
+                            <TextBlock Text="Segmented engine" FontSize="11" Foreground="{DynamicResource Muted}" />
+                        </Border>
+                        <Border Style="{StaticResource Pill}" Margin="0,0,6,0">
+                            <TextBlock Text="Browser capture" FontSize="11" Foreground="{DynamicResource Muted}" />
+                        </Border>
+                        <Border Style="{StaticResource Pill}" Margin="0,0,6,0">
+                            <TextBlock Text="Scheduler + HLS" FontSize="11" Foreground="{DynamicResource Muted}" />
+                        </Border>
+                        <Border Style="{StaticResource Pill}">
+                            <TextBlock Text="No trial or key" FontSize="11" Foreground="{DynamicResource Muted}" />
+                        </Border>
+                    </StackPanel>
+
+                    <Border Style="{StaticResource Card}" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Install location" Style="{StaticResource H2}" />
+                            <TextBlock Margin="0,3,0,9" Style="{StaticResource Caption}"
+                                       Text="The app, extension and uninstaller are installed here." />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="InstallPathBox" VerticalContentAlignment="Center" />
+                                <Button Grid.Column="1" Content="Browse..." Margin="8,0,0,0"
+                                        Click="Browse_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Options" Style="{StaticResource H2}" />
+                            <CheckBox x:Name="DesktopShortcutBox" IsChecked="True" Margin="0,12,0,0"
+                                      Content="Create a desktop shortcut" />
+                            <CheckBox x:Name="StartWithWindowsBox" IsChecked="True" Margin="0,11,0,0"
+                                      Content="Start RapidFetch with Windows" />
+                            <CheckBox x:Name="ShellIntegrationBox" IsChecked="True" Margin="0,11,0,0"
+                                      Content="Add Explorer context menu entries" />
+                            <TextBlock Margin="27,11,0,0" Style="{StaticResource Caption}"
+                                       Text="Browser integration is installed automatically for Edge, Chrome, Brave, Chromium, Vivaldi and Opera." />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="{DynamicResource SurfaceAlt}" CornerRadius="10" Padding="14,11"
+                            Margin="0,12,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE946;" FontFamily="Segoe MDL2 Assets"
+                                       Foreground="{DynamicResource Accent}" FontSize="16"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" FontSize="12"
+                                       Foreground="{DynamicResource Muted}"
+                                       Text="Your settings, download history and queue in %APPDATA%\RapidFetch are preserved. Windows 10 or 11, 64-bit." />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- success page -->
+            <ScrollViewer x:Name="FinishPanel" Grid.Row="1" Visibility="Collapsed"
+                          VerticalScrollBarVisibility="Auto" Padding="32,4,32,8">
+                <StackPanel>
+                    <Border Width="62" Height="62" CornerRadius="31"
+                            Background="{DynamicResource AccentSoft}" HorizontalAlignment="Center">
+                        <TextBlock Text="&#xE73E;" FontFamily="Segoe MDL2 Assets" FontSize="28"
+                                   Foreground="{DynamicResource Success}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="RapidFetch is installed" Style="{StaticResource H1}"
+                               HorizontalAlignment="Center" Margin="0,14,0,0" />
+                    <TextBlock x:Name="FinishPath" HorizontalAlignment="Center" Margin="0,6,0,0"
+                               Style="{StaticResource Caption}" TextTrimming="CharacterEllipsis" />
+
+                    <Border Style="{StaticResource Card}" Margin="0,20,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Finish the browser link" Style="{StaticResource H2}" />
+                            <TextBlock Margin="0,4,0,10" TextWrapping="Wrap" Foreground="{DynamicResource Muted}"
+                                       Text="Load the extension once in your browser: open the extensions page, enable Developer mode, choose Load unpacked, and select this folder." />
+                            <TextBox x:Name="FinishExtensionPath" IsReadOnly="True"
+                                     VerticalContentAlignment="Center" />
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Button Content="Open extension folder" Click="OpenExtension_Click" />
+                                <Button Content="Open Edge extensions" Style="{StaticResource GhostButton}"
+                                        Margin="6,0,0,0" Click="OpenEdgeExtensions_Click" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="{DynamicResource SurfaceAlt}" CornerRadius="10" Padding="14,11"
+                            Margin="0,12,0,0">
+                        <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource Muted}"
+                                   Text="The extension ID is fixed at lmbdeehijjekhepgoioomfgobpkgmlcb. If RapidFetch is not running, the native host starts it automatically when you capture a download." />
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                        <Button Content="Launch RapidFetch" Style="{StaticResource PrimaryButton}"
+                                Padding="20,9" Click="Launch_Click" />
+                        <Button Content="Close" Style="{StaticResource GhostButton}"
+                                Margin="8,0,0,0" Padding="18,9" Click="Close_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- footer -->
+            <Grid Grid.Row="2" Margin="32,0,32,18">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ProgressBar x:Name="InstallProgress" Height="4" Minimum="0" Maximum="100"
+                             Value="0" Visibility="Hidden" />
+
+                <Grid Grid.Row="1" Margin="0,12,0,0">
+                    <TextBlock x:Name="StatusText" VerticalAlignment="Center"
+                               Foreground="{DynamicResource Muted}" FontSize="12"
+                               Text="Ready to install." TextTrimming="CharacterEllipsis" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="CancelButton" Content="Cancel" Style="{StaticResource GhostButton}"
+                                Padding="18,8" Click="Close_Click" />
+                        <Button x:Name="InstallButton" Content="Install RapidFetch"
+                                Style="{StaticResource PrimaryButton}" Padding="22,9"
+                                Margin="8,0,0,0" Click="Install_Click" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

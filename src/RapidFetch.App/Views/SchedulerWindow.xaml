@@ -1,0 +1,99 @@
+<Window x:Class="RapidFetch.App.Views.SchedulerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Scheduler" Height="640" Width="520" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="NoResize" Background="{DynamicResource Bg}" ShowInTaskbar="False">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="44" ResizeBorderThickness="4" CornerRadius="0"
+                            GlassFrameThickness="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{DynamicResource Border}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="64" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{DynamicResource Surface}" MouseLeftButtonDown="Header_MouseDown">
+                <TextBlock Text="Scheduler" FontWeight="SemiBold" Margin="18,0,0,0" VerticalAlignment="Center" />
+                <Button Content="&#xE8BB;" Style="{StaticResource IconButton}" Width="44" Height="44"
+                        HorizontalAlignment="Right" Click="Cancel_Click"
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True" />
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,18">
+                <StackPanel>
+                    <CheckBox x:Name="EnabledBox" Content="Enable the download window" Margin="0,0,0,4" />
+                    <TextBlock Text="Downloads only run inside this window. Anything outside it is queued or paused."
+                               Style="{StaticResource Caption}" TextWrapping="Wrap" />
+
+                    <Grid Margin="0,18,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="14" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="START (HH:MM)" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                            <TextBox x:Name="StartBox" Text="01:00" Margin="0,6,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="STOP (HH:MM)" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                            <TextBox x:Name="StopBox" Text="07:00" Margin="0,6,0,0" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="ACTIVE DAYS" Style="{StaticResource Caption}" FontWeight="SemiBold" Margin="0,20,0,8" />
+                    <WrapPanel>
+                        <CheckBox x:Name="MonBox" Content="Mon" Margin="0,0,16,8" />
+                        <CheckBox x:Name="TueBox" Content="Tue" Margin="0,0,16,8" />
+                        <CheckBox x:Name="WedBox" Content="Wed" Margin="0,0,16,8" />
+                        <CheckBox x:Name="ThuBox" Content="Thu" Margin="0,0,16,8" />
+                        <CheckBox x:Name="FriBox" Content="Fri" Margin="0,0,16,8" />
+                        <CheckBox x:Name="SatBox" Content="Sat" Margin="0,0,16,8" />
+                        <CheckBox x:Name="SunBox" Content="Sun" Margin="0,0,16,8" />
+                    </WrapPanel>
+
+                    <TextBlock Text="TRANSFER CAP" Style="{StaticResource Caption}" FontWeight="SemiBold" Margin="0,16,0,6" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="70" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="LimitBox" Text="0" />
+                        <TextBlock Grid.Column="2" Text="MB / day" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource Muted}" />
+                    </Grid>
+                    <TextBlock Text="0 means no cap." Style="{StaticResource Caption}" Margin="0,6,0,0" />
+                    <CheckBox x:Name="StopAfterBox" Content="Stop all downloads when the cap is reached" Margin="0,10,0,0" />
+
+                    <TextBlock Text="WHEN THE WINDOW ENDS" Style="{StaticResource Caption}" FontWeight="SemiBold" Margin="0,20,0,6" />
+                    <ComboBox x:Name="ActionBox">
+                        <ComboBoxItem Content="Just pause everything" Tag="none" />
+                        <ComboBoxItem Content="Exit RapidFetch" Tag="exit" />
+                        <ComboBoxItem Content="Sleep the computer" Tag="sleep" />
+                        <ComboBoxItem Content="Hibernate" Tag="hibernate" />
+                        <ComboBoxItem Content="Shut down" Tag="shutdown" />
+                    </ComboBox>
+
+                    <Border Background="{DynamicResource SurfaceAlt}" CornerRadius="9" Padding="12" Margin="0,20,0,0">
+                        <TextBlock x:Name="SummaryText" TextWrapping="Wrap" FontSize="11"
+                                   Foreground="{DynamicResource Muted}" />
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Border Grid.Row="2" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}"
+                    BorderThickness="0,1,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0">
+                    <Button Content="Cancel" Click="Cancel_Click" Margin="0,0,8,0" />
+                    <Button Content="Save schedule" Style="{StaticResource PrimaryButton}" Click="Save_Click" MinWidth="130" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

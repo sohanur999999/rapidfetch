@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RapidFetch link picker</title>
+  <link rel="stylesheet" href="picker.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brandline">
+      <img src="icons/icon48.png" alt="" width="30" height="30" />
+      <div>
+        <h1>Download from this page</h1>
+        <p id="pageLabel">Collecting links…</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="selectAll" class="ghost">Select all</button>
+      <button id="selectNone" class="ghost">Clear</button>
+      <button id="download" class="primary" disabled>Download selected</button>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="search">
+      <span>⌕</span>
+      <input id="search" type="search" placeholder="Filter by name or address" autocomplete="off" />
+    </div>
+    <div class="chips">
+      <button class="chip chip-active" data-filter="files">Downloads</button>
+      <button class="chip" data-filter="media">Media</button>
+      <button class="chip" data-filter="all">Everything</button>
+    </div>
+    <span id="summary" class="summary">—</span>
+  </div>
+
+  <main id="list" class="list"></main>
+
+  <div id="empty" class="empty" hidden>
+    <div class="empty-icon">⌁</div>
+    <p>Nothing matched.</p>
+    <span>Try another filter or play the video so the stream is discovered.</span>
+  </div>
+
+  <footer class="footer">
+    <span id="status" class="status">Ready.</span>
+    <span class="hint">Checked items are handed to the desktop app.</span>
+  </footer>
+
+  <script src="picker.js"></script>
+</body>
+</html>

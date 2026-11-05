@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RapidFetch options</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="brandline">
+        <img src="icons/icon48.png" alt="" width="34" height="34" />
+        <div>
+          <h1>RapidFetch</h1>
+          <p>Browser extension options</p>
+        </div>
+      </div>
+      <div id="statePill" class="pill pill-wait">Checking connection…</div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="card-head">
+          <h2>Connection</h2>
+          <span class="hint">Native messaging host · com.rapidfetch.host</span>
+        </div>
+        <div class="field-row">
+          <label class="field">
+            <span>Bridge port</span>
+            <input id="port" type="number" min="1024" max="65535" step="1" />
+          </label>
+          <label class="field narrow">
+            <span>Connections per download</span>
+            <input id="connections" type="number" min="1" max="32" step="1" />
+          </label>
+        </div>
+        <div class="inline">
+          <button id="test" class="ghost">Test connection</button>
+          <button id="startApp" class="ghost">Start RapidFetch</button>
+          <span id="testResult" class="hint"></span>
+        </div>
+        <p class="note">
+          The desktop app registers the native host automatically when it runs.
+          If the connection fails, open RapidFetch once from the Start menu.
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Capturing downloads</h2>
+        </div>
+
+        <label class="select-row">
+          <span>
+            <strong>Automatic capture</strong>
+            <em>What happens when Chrome starts a download.</em>
+          </span>
+          <select id="captureMode">
+            <option value="auto">Take over silently</option>
+            <option value="ask">Ask first</option>
+            <option value="off">Leave downloads to Chrome</option>
+          </select>
+        </label>
+
+        <label class="check-row">
+          <input id="captureMedia" type="checkbox" />
+          <span>
+            <strong>Detect media on pages</strong>
+            <em>List direct video, audio and HLS streams in the popup.</em>
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input id="floatingButton" type="checkbox" />
+          <span>
+            <strong>Show the floating Download button</strong>
+            <em>Show IDM-style “Download this video” controls over pages with media.</em>
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input id="notify" type="checkbox" />
+          <span>
+            <strong>Show notifications</strong>
+            <em>Tell me when a link is handed to the desktop app.</em>
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input id="badge" type="checkbox" />
+          <span>
+            <strong>Badge with media count</strong>
+            <em>Show how many media files were found on the current tab.</em>
+          </span>
+        </label>
+
+        <label class="field full">
+          <span>Never capture from these sites</span>
+          <textarea id="skipHosts" rows="3" spellcheck="false"
+                    placeholder="example.com&#10;bank.example"></textarea>
+          <em class="hint">One host per line. Subdomains are included automatically.</em>
+        </label>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Tips</h2>
+        </div>
+        <ul class="tips">
+          <li>Right-click a link → <strong>Download with RapidFetch</strong>.</li>
+          <li>Right-click a page → <strong>Download all links</strong> opens a picker with filters.</li>
+          <li>On pages with video or audio, click the blue <strong>Download this video</strong> button.</li>
+          <li><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> toggles automatic capture.</li>
+          <li>HLS playlists are detected even when the player hides the real segment URLs.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>About</h2>
+          <span class="hint">Extension 1.0.0</span>
+        </div>
+        <p class="note" id="identity"></p>
+        <p class="note">
+          RapidFetch works entirely on this computer. The extension only talks to
+          <code>127.0.0.1</code> and to the native host; nothing is uploaded anywhere.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span id="savedNote" class="hint"></span>
+      <div class="inline">
+        <button id="reset" class="ghost">Reset defaults</button>
+        <button id="save" class="primary">Save changes</button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

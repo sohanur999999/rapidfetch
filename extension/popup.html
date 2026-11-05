@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RapidFetch</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="icons/icon32.png" alt="" width="22" height="22" />
+      <span class="brand-name">RapidFetch</span>
+      <span id="statePill" class="pill pill-wait">Connecting</span>
+    </div>
+    <div class="top-actions">
+      <button id="toggleCapture" class="icon-btn" title="Automatic capture">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5Z" fill="currentColor" />
+        </svg>
+      </button>
+      <button id="openOptions" class="icon-btn" title="Options">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" fill="none" stroke="currentColor" stroke-width="1.8" />
+          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v.09a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="segmented">
+    <button class="seg seg-active" data-tab="media">This page <span id="mediaCount" class="count">0</span></button>
+    <button class="seg" data-tab="downloads">Downloads <span id="activeCount" class="count">0</span></button>
+  </nav>
+
+  <main>
+    <section id="paneMedia" class="pane">
+      <div class="pane-head">
+        <span id="pageTitle" class="muted">Reading the page…</span>
+        <button id="addAllMedia" class="link-btn" hidden>Download all</button>
+      </div>
+      <div id="mediaList" class="list"></div>
+      <div id="mediaEmpty" class="empty">
+        <div class="empty-icon">⌁</div>
+        <p>No downloadable media found.</p>
+        <span>Play a video or open a direct MP4, MP3 or HLS page. A blue “Download this video” button also appears on the page.</span>
+      </div>
+      <button id="openPicker" class="wide ghost">Browse every link on this page…</button>
+    </section>
+
+    <section id="paneDownloads" class="pane" hidden>
+      <form id="addForm" class="add-row">
+        <input id="addUrl" type="url" placeholder="Paste a download address" autocomplete="off" spellcheck="false" />
+        <button type="submit" class="primary small">Add</button>
+      </form>
+      <div id="downloadList" class="list"></div>
+      <div id="downloadEmpty" class="empty">
+        <div class="empty-icon">⇩</div>
+        <p>Nothing in the queue.</p>
+        <span>Downloads you send from here show up with live progress.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div id="offlineBar" class="offline" hidden>
+      <span>Desktop app is not running.</span>
+      <button id="startApp" class="link-btn">Start it</button>
+    </div>
+    <div class="footer-row">
+      <span id="footerStats" class="muted">Ready</span>
+      <a id="optionsLink" href="options.html" target="_blank" class="link-btn">Options</a>
+    </div>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<Window x:Class="RapidFetch.App.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Options" Height="660" Width="820" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="NoResize" Background="{DynamicResource Bg}" ShowInTaskbar="False">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="44" ResizeBorderThickness="4" CornerRadius="0"
+                            GlassFrameThickness="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{DynamicResource Border}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="64" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{DynamicResource Surface}" MouseLeftButtonDown="Header_MouseDown">
+                <TextBlock Text="Options" FontWeight="SemiBold" Margin="18,0,0,0" VerticalAlignment="Center" />
+                <Button Content="&#xE8BB;" Style="{StaticResource IconButton}" Width="44" Height="44"
+                        HorizontalAlignment="Right" Click="Cancel_Click"
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="190" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="{DynamicResource Surface}"
+                        BorderBrush="{DynamicResource Border}" BorderThickness="0,0,1,0" Padding="10">
+                    <ListBox x:Name="SectionList" Background="Transparent" BorderThickness="0"
+                             ItemContainerStyle="{StaticResource NavItem}" SelectionChanged="SectionList_SelectionChanged">
+                        <ListBoxItem Tag="general" Content="General" IsSelected="True" />
+                        <ListBoxItem Tag="downloads" Content="Downloads" />
+                        <ListBoxItem Tag="speed" Content="Speed &amp; limits" />
+                        <ListBoxItem Tag="browser" Content="Browser integration" />
+                        <ListBoxItem Tag="network" Content="Network" />
+                        <ListBoxItem Tag="video" Content="Video sites" />
+                        <ListBoxItem Tag="advanced" Content="Advanced" />
+                    </ListBox>
+                </Border>
+
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Padding="26,20">
+                    <Grid>
+                        <!-- general -->
+                        <StackPanel x:Name="PaneGeneral">
+                            <TextBlock Text="Appearance" Style="{StaticResource H2}" />
+                            <TextBlock Text="Theme" Style="{StaticResource Caption}" Margin="0,12,0,4" />
+                            <ComboBox x:Name="ThemeBox" Width="220" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Dark" Tag="dark" />
+                                <ComboBoxItem Content="Light" Tag="light" />
+                                <ComboBoxItem Content="Follow Windows" Tag="system" />
+                            </ComboBox>
+
+                            <TextBlock Text="Accent" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <ComboBox x:Name="AccentBox" Width="220" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Blue" Tag="#0A84FF" />
+                                <ComboBoxItem Content="Violet" Tag="#8B5CF6" />
+                                <ComboBoxItem Content="Emerald" Tag="#10B981" />
+                                <ComboBoxItem Content="Amber" Tag="#F59E0B" />
+                                <ComboBoxItem Content="Rose" Tag="#F43F5E" />
+                                <ComboBoxItem Content="Cyan" Tag="#06B6D4" />
+                            </ComboBox>
+
+                            <TextBlock Text="Behaviour" Style="{StaticResource H2}" Margin="0,26,0,0" />
+                            <CheckBox x:Name="StartWithWindows" Content="Start with Windows" Margin="0,12,0,0" />
+                            <CheckBox x:Name="CloseToTray" Content="Close button hides to the tray" Margin="0,10,0,0" />
+                            <CheckBox x:Name="Notify" Content="Show a notification when a download finishes" Margin="0,10,0,0" />
+                            <CheckBox x:Name="ClipboardWatch" Content="Capture download links copied to the clipboard" Margin="0,10,0,0" />
+                            <CheckBox x:Name="ShellIntegration" Content="Add “Download with RapidFetch” to Explorer" Margin="0,10,0,0" />
+                        </StackPanel>
+
+                        <!-- downloads -->
+                        <StackPanel x:Name="PaneDownloads" Visibility="Collapsed">
+                            <TextBlock Text="Save location" Style="{StaticResource H2}" />
+                            <TextBlock Text="Default folder" Style="{StaticResource Caption}" Margin="0,12,0,4" />
+                            <Grid Width="520" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="FolderBox" />
+                                <Button Grid.Column="1" Content="Browse…" Margin="8,0,0,0" Click="BrowseFolder_Click" />
+                            </Grid>
+
+                            <TextBlock Text="Temporary parts folder" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <Grid Width="520" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="TempBox" />
+                                <Button Grid.Column="1" Content="Browse…" Margin="8,0,0,0" Click="BrowseTemp_Click" />
+                            </Grid>
+                            <TextBlock Text="Leave blank to keep partial files inside the save folder."
+                                       Style="{StaticResource Caption}" Margin="0,6,0,0" />
+
+                            <TextBlock Text="Transfer" Style="{StaticResource H2}" Margin="0,26,0,0" />
+                            <TextBlock Text="Connections per download" Style="{StaticResource Caption}" Margin="0,12,0,4" />
+                            <StackPanel Orientation="Horizontal">
+                                <Slider x:Name="ConnectionsSlider" Minimum="1" Maximum="32" Width="240"
+                                        TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Connections_Changed" />
+                                <TextBlock x:Name="ConnectionsValue" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" />
+                            </StackPanel>
+
+                            <TextBlock Text="Simultaneous downloads" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <StackPanel Orientation="Horizontal">
+                                <Slider x:Name="ConcurrentSlider" Minimum="1" Maximum="12" Width="240"
+                                        TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Concurrent_Changed" />
+                                <TextBlock x:Name="ConcurrentValue" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" />
+                            </StackPanel>
+
+                            <CheckBox x:Name="RetryBox" Content="Retry failed transfers automatically" Margin="0,20,0,0" />
+                            <CheckBox x:Name="ConfirmAddBox" Content="Ask for a file name and folder before starting" Margin="0,10,0,0" />
+                            <CheckBox x:Name="TransferPopupBox" Content="Show a floating speed panel while transfers run" Margin="0,10,0,0" />
+                        </StackPanel>
+
+                        <!-- speed -->
+                        <StackPanel x:Name="PaneSpeed" Visibility="Collapsed">
+                            <TextBlock Text="Speed limiter" Style="{StaticResource H2}" />
+                            <CheckBox x:Name="LimitBox" Content="Cap total download speed" Margin="0,12,0,0" />
+                            <TextBlock Text="Limit" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <StackPanel Orientation="Horizontal">
+                                <Slider x:Name="LimitSlider" Minimum="64" Maximum="102400" Width="280"
+                                        TickFrequency="64" IsSnapToTickEnabled="True" ValueChanged="Limit_Changed" />
+                                <TextBlock x:Name="LimitValue" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" />
+                            </StackPanel>
+                            <TextBlock Text="Applied across every running download." Style="{StaticResource Caption}" Margin="0,6,0,0" />
+
+                            <TextBlock Text="Scheduler" Style="{StaticResource H2}" Margin="0,26,0,0" />
+                            <TextBlock Text="Open the scheduler window to set a daily window, weekday rules and a data cap."
+                                       Foreground="{DynamicResource Muted}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                            <Button Content="Open scheduler" Margin="0,12,0,0" HorizontalAlignment="Left" Click="OpenScheduler_Click" />
+                        </StackPanel>
+
+                        <!-- browser -->
+                        <StackPanel x:Name="PaneBrowser" Visibility="Collapsed">
+                            <TextBlock Text="Browser integration" Style="{StaticResource H2}" />
+                            <CheckBox x:Name="BrowserBox" Content="Enable the local bridge and native host" Margin="0,12,0,0" />
+                            <CheckBox x:Name="MediaBox" Content="Offer to download media found on the page" Margin="0,10,0,0" />
+
+                            <TextBlock Text="Port" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <TextBox x:Name="PortBox" Width="120" HorizontalAlignment="Left" />
+
+                            <Border Style="{StaticResource Card}" Margin="0,20,0,0" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="Loading the extension" FontWeight="SemiBold" />
+                                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource Muted}" Margin="0,6,0,0"
+                                               Text="Open chrome://extensions (or edge://extensions), enable Developer mode, choose Load unpacked and select the folder below." />
+                                    <TextBlock x:Name="ExtensionPath" Style="{StaticResource Mono}" Margin="0,10,0,0"
+                                               TextWrapping="Wrap" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                        <Button Content="Open extension folder" Click="OpenExtension_Click" />
+                                        <Button Content="Reinstall native host" Margin="8,0,0,0" Click="ReinstallHost_Click" />
+                                    </StackPanel>
+                                    <TextBlock x:Name="HostStatus" Style="{StaticResource Caption}" Margin="0,10,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- network -->
+                        <StackPanel x:Name="PaneNetwork" Visibility="Collapsed">
+                            <TextBlock Text="Proxy server" Style="{StaticResource H2}" />
+                            <TextBlock Text="Route transfers through an HTTP, HTTPS, SOCKS4 or SOCKS5 proxy."
+                                       Foreground="{DynamicResource Muted}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                            <CheckBox x:Name="ProxyEnabledBox" Content="Use a proxy server" Margin="0,16,0,0" />
+
+                            <Grid Margin="0,14,0,0" Width="520" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="90" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="TYPE" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                                    <ComboBox x:Name="ProxyTypeBox" Margin="0,6,0,0">
+                                        <ComboBoxItem Content="HTTP" Tag="http" />
+                                        <ComboBoxItem Content="HTTPS" Tag="https" />
+                                        <ComboBoxItem Content="SOCKS4" Tag="socks4" />
+                                        <ComboBoxItem Content="SOCKS5" Tag="socks5" />
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="HOST" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                                    <TextBox x:Name="ProxyHostBox" Margin="0,6,0,0" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="4">
+                                    <TextBlock Text="PORT" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                                    <TextBox x:Name="ProxyPortBox" Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,14,0,0" Width="520" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="USER NAME" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                                    <TextBox x:Name="ProxyUserBox" Margin="0,6,0,0" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="PASSWORD" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                                    <PasswordBox x:Name="ProxyPasswordBox" Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Grid>
+
+                            <CheckBox x:Name="ProxyBypassLocalBox"
+                                      Content="Bypass the proxy for local and .local addresses"
+                                      Margin="0,16,0,0" />
+                            <TextBlock Text="Changes apply to the next request. A proxy can also be required by corporate networks."
+                                       Style="{StaticResource Caption}" Margin="0,14,0,0" TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <!-- video sites -->
+                        <StackPanel x:Name="PaneVideo" Visibility="Collapsed">
+                            <TextBlock Text="Video sites" Style="{StaticResource H2}" />
+                            <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource Muted}" Margin="0,8,0,0"
+                                       Text="YouTube, Facebook and similar pages play separate audio and video tracks instead of one file. RapidFetch hands those pages to yt-dlp, then shows the merged result in the normal download list." />
+
+                            <CheckBox x:Name="VideoSitesBox" Content="Use yt-dlp for supported video pages" Margin="0,16,0,0" />
+
+                            <Border Style="{StaticResource Card}" Margin="0,18,0,0" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="yt-dlp" FontWeight="SemiBold" />
+                                    <TextBlock x:Name="YtDlpStatus" Style="{StaticResource Caption}"
+                                               TextWrapping="Wrap" Margin="0,6,0,0" />
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="YtDlpPathBox" LostFocus="YtDlpPathBox_LostFocus" />
+                                        <Button Grid.Column="1" Content="Browse…" Margin="8,0,0,0"
+                                                Click="BrowseYtDlp_Click" />
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Button x:Name="InstallYtDlpButton" Content="Install yt-dlp"
+                                                Click="InstallYtDlp_Click" />
+                                        <Button Content="Check version" Margin="8,0,0,0" Click="CheckYtDlp_Click" />
+                                    </StackPanel>
+                                    <TextBlock Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,8,0,0"
+                                               Text="Installs the official yt-dlp.exe from its GitHub releases into the RapidFetch data folder. It stays a separate program that you can update or remove." />
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock Text="Default quality" Style="{StaticResource Caption}" Margin="0,18,0,4" />
+                            <ComboBox x:Name="QualityBox" Width="240" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Best available" Tag="best" />
+                                <ComboBoxItem Content="Up to 1080p" Tag="1080" />
+                                <ComboBoxItem Content="Up to 720p" Tag="720" />
+                                <ComboBoxItem Content="Up to 480p" Tag="480" />
+                                <ComboBoxItem Content="Audio only" Tag="audio" />
+                            </ComboBox>
+
+                            <CheckBox x:Name="PlaylistBox" Margin="0,16,0,0"
+                                      Content="Download the whole playlist when the address is a playlist" />
+
+                            <TextBlock Text="Cookies from browser" Style="{StaticResource Caption}" Margin="0,18,0,4" />
+                            <ComboBox x:Name="CookiesBox" Width="240" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Do not use cookies" Tag="none" />
+                                <ComboBoxItem Content="Microsoft Edge" Tag="edge" />
+                                <ComboBoxItem Content="Google Chrome" Tag="chrome" />
+                                <ComboBoxItem Content="Mozilla Firefox" Tag="firefox" />
+                                <ComboBoxItem Content="Brave" Tag="brave" />
+                                <ComboBoxItem Content="Opera" Tag="opera" />
+                                <ComboBoxItem Content="Vivaldi" Tag="vivaldi" />
+                            </ComboBox>
+                            <TextBlock Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,6,0,0"
+                                       Text="Use this when a site asks you to sign in or confirm that you are not a bot. Close the browser first if the cookie database is locked." />
+
+                            <Border Style="{StaticResource Card}" Margin="0,18,0,0" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="ffmpeg" FontWeight="SemiBold" />
+                                    <TextBlock x:Name="FfmpegStatus" Style="{StaticResource Caption}"
+                                               TextWrapping="Wrap" Margin="0,6,0,0" />
+                                    <TextBlock Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,8,0,0"
+                                               Text="ffmpeg merges the separate video and audio tracks into one MP4. Without it RapidFetch downloads the best single-file quality the site offers (often 360p). Install it with: winget install Gyan.FFmpeg" />
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,18,0,0"
+                                       Text="yt-dlp is an independent open-source project. Only download material you have the right to keep, and respect the terms of the sites you use." />
+                        </StackPanel>
+
+                        <!-- advanced -->
+                        <StackPanel x:Name="PaneAdvanced" Visibility="Collapsed">
+                            <TextBlock Text="Data" Style="{StaticResource H2}" />
+                            <TextBlock Text="Settings, download state and logs live in a single folder."
+                                       Foreground="{DynamicResource Muted}" Margin="0,8,0,0" />
+                            <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                                <Button Content="Open data folder" Click="OpenData_Click" />
+                                <Button Content="Export settings…" Margin="8,0,0,0" Click="Export_Click" />
+                                <Button Content="Import settings…" Margin="8,0,0,0" Click="Import_Click" />
+                            </StackPanel>
+
+                            <TextBlock Text="Download list" Style="{StaticResource H2}" Margin="0,26,0,0" />
+                            <TextBlock Text="Keep a backup of the queue or move a list of links to another computer."
+                                       Foreground="{DynamicResource Muted}" Margin="0,8,0,0" TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                                <Button Content="Export list…" Click="ExportList_Click" />
+                                <Button Content="Import links…" Margin="8,0,0,0" Click="ImportLinks_Click" />
+                            </StackPanel>
+
+                            <TextBlock Text="Maintenance" Style="{StaticResource H2}" Margin="0,26,0,0" />
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <Button Content="Clear finished items" Click="ClearFinished_Click" />
+                                <Button Content="Open log" Margin="8,0,0,0" Click="OpenLog_Click" />
+                            </StackPanel>
+                            <Button Content="Reset all settings to defaults" Style="{StaticResource DangerButton}"
+                                    HorizontalAlignment="Left" Margin="0,16,0,0" Click="Reset_Click" />
+
+                            <TextBlock x:Name="AdvancedVersion" Style="{StaticResource Caption}" Margin="0,28,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+
+            <Border Grid.Row="2" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}"
+                    BorderThickness="0,1,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0">
+                    <Button Content="Cancel" Click="Cancel_Click" Margin="0,0,8,0" />
+                    <Button Content="Save changes" Style="{StaticResource PrimaryButton}" Click="Save_Click" MinWidth="120" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

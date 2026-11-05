@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sohanur999999.github.io/rapidfetch/sitemap.xml

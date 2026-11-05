@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RapidFetch popup harness</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; min-height: 100vh; }
+  body {
+    font-family: "Segoe UI Variable Text", "Segoe UI", sans-serif;
+    background: radial-gradient(1000px 600px at 50% -10%, #1c3350, #0c1118 60%);
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    padding: 30px 20px 60px; box-sizing: border-box;
+  }
+  h1 { font-size: 15px; font-weight: 600; color: #c9d6e8; margin: 0; letter-spacing: .01em; }
+  p { margin: 0; color: #8291a8; font-size: 12px; }
+  iframe {
+    width: 380px; height: 540px; border: 1px solid #28364c; border-radius: 13px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .55); background: #0e131b;
+  }
+</style>
+</head>
+<body>
+<h1>RapidFetch popup · mocked runtime</h1>
+<p>DASH manifests and googlevideo segments are intentionally filtered out.</p>
+<iframe id="popup"></iframe>
+<script>
+const mock = `
+<script>
+  const media = [
+    { url: "https://cdn.example.com/media/launch-film.mp4", kind: "video", size: 128849018, foundAt: 2 },
+    { url: "https://cdn.example.com/audio/theme.mp3", kind: "audio", size: 5242880, foundAt: 1 },
+    { url: "https://cdn.example.com/live/master.m3u8", kind: "stream", foundAt: 3 },
+    { url: "https://rr1---sn-a5mekn6s.googlevideo.com/videoplayback?expire=1", kind: "video", foundAt: 4 },
+    { url: "https://cdn.example.com/manifest.mpd", kind: "stream", foundAt: 5 },
+    { url: "https://cdn.example.com/segment.m4s", kind: "video", foundAt: 6 }
+  ];
+  const downloads = [
+    { id: "one", url: "https://cdn.example.com/media/launch-film.mp4", fileName: "launch-film.mp4", status: "Downloading", total: 128849018, downloaded: 64424509, speed: 8912896 },
+    { id: "two", url: "https://cdn.example.com/archive.zip", fileName: "archive.zip", status: "Completed", total: 75000000, downloaded: 75000000 },
+    { id: "three", url: "https://cdn.example.com/audio/theme.mp3", fileName: "theme.mp3", status: "Paused", total: 5242880, downloaded: 1200000 }
+  ];
+  window.chrome = {
+    runtime: {
+      getURL: (path) => "/extension/" + path,
+      openOptionsPage: () => {},
+      sendMessage: async (message) => {
+        switch (message.type) {
+          case "settings:get": return { ok: true, settings: { captureMode: "auto" } };
+          case "ping": return { ok: true, state: "online" };
+          case "media:list": return { ok: true, pageUrl: "https://example.com/demo-video", items: media };
+          case "status": return { ok: true, data: { downloads } };
+          case "add": return { ok: true };
+          case "add-many": return { ok: true, result: { added: message.urls.length } };
+          case "capture:toggle": return { ok: true, captureMode: "off" };
+          default: return { ok: true };
+        }
+      }
+    },
+    tabs: {
+      query: async () => [{ id: 7, url: "https://example.com/demo-video", title: "Demo video page" }],
+      get: async (id) => ({ id, url: "https://example.com/demo-video", title: "Demo video page" }),
+      create: () => {}
+    }
+  };
+<\/script>`;
+
+const closeScript = "</" + "script>";
+fetch("/extension/popup.html")
+  .then((response) => response.text())
+  .then((html) => {
+    const prepared = html
+      .replace("<head>", '<head><base href="/extension/">')
+      .replace('<script src="popup.js">' + closeScript,
+               mock + '<script src="popup.js">' + closeScript);
+    document.getElementById("popup").srcdoc = prepared;
+  });
+</script>
+</body>
+</html>

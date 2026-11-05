@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RapidFetch media bar harness</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; font-family: "Segoe UI Variable Text", "Segoe UI", sans-serif;
+    background: radial-gradient(1200px 700px at 20% -10%, #1e3a5f, #0d1117 55%);
+    color: #e6edf7;
+  }
+  main { max-width: 1040px; margin: 0 auto; padding: 44px 32px 120px; }
+  h1 { font-size: 26px; margin: 0 0 8px; letter-spacing: -.02em; }
+  p { color: #93a0b5; line-height: 1.55; }
+  .card {
+    margin-top: 26px; border: 1px solid #243044; border-radius: 14px; overflow: hidden;
+    background: #111826; box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  }
+  .card header { padding: 14px 18px; border-bottom: 1px solid #1f2a3c; background: #141d2d; font-weight: 600; }
+  video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #06090e; }
+  audio { display: block; width: 100%; padding: 16px; box-sizing: border-box; }
+  code { color: #7dd3fc; }
+  .log { margin-top: 20px; font: 12px/1.6 "Cascadia Mono", Consolas, monospace; color: #8ea3bf; }
+</style>
+</head>
+<body>
+<main>
+  <h1>RapidFetch media bar test</h1>
+  <p>This local harness stubs the extension runtime. The real <code>content.js</code>
+     shows the IDM-style <strong>Download this video</strong> bar at the video's
+     top-right. Click it to load the format list, then download one row or all rows.
+     Add <code>?formats=0</code> to test the detected-media list, or
+     <code>?fail=1</code> to test the retry notice.</p>
+
+  <div class="card">
+    <header>Demo video · sample.mp4</header>
+    <video controls preload="metadata" title="Big Buck Bunny sample">
+      <source src="/media/sample.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="card">
+    <header>Demo audio · sample.mp3</header>
+    <audio controls preload="metadata" title="Demo track">
+      <source src="/media/sample.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <p style="margin-top:22px">HLS playlist: <code>/media/master.m3u8</code>
+     <a href="/media/master.m3u8">open</a></p>
+
+  <div class="log" id="log">waiting for content script…</div>
+</main>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const useFormats = params.get("formats") !== "0";
+  if (useFormats) window.__rapidFetchHarnessVideoSite = true;
+
+  // Minimal chrome.runtime shim so content.js can run outside the extension.
+  const logEl = document.getElementById("log");
+  const lines = [];
+  const log = (line) => {
+    lines.push(line);
+    logEl.textContent = lines.slice(-8).join("\n");
+  };
+  const sent = [];
+  window.__rfSent = sent;
+  let formatsCalls = 0;
+
+  const demoFormats = [
+    { quality: "2160", label: "2160p 4K", ext: "webm", size: 358608447, height: 2160, fps: 60, kind: "video" },
+    { quality: "1440", label: "1440p 2K", ext: "mp4", size: 151103346, height: 1440, fps: 60, kind: "video" },
+    { quality: "1080", label: "1080p HD", ext: "mp4", size: 80911999, height: 1080, fps: 60, kind: "video" },
+    { quality: "720", label: "720p HD", ext: "mp4", size: 26455880, height: 720, fps: 60, kind: "video" },
+    { quality: "480", label: "480p", ext: "mp4", size: 14103519, height: 480, fps: 30, kind: "video" },
+    { quality: "360", label: "360p", ext: "mp4", size: 8390921, height: 360, fps: 30, kind: "video" },
+    { quality: "240", label: "240p", ext: "mp4", size: 4310122, height: 240, fps: 30, kind: "video" },
+    { quality: "144", label: "144p", ext: "mp4", size: 2058142, height: 144, fps: 30, kind: "video" },
+    { quality: "audio", label: "Audio only", ext: "m4a", size: 3449447, height: 0, fps: 0, kind: "audio" }
+  ];
+
+  window.chrome = {
+    runtime: {
+      id: "harness-runtime",
+      lastError: null,
+      sendMessage(message, callback) {
+        const respond = (response) => {
+          if (typeof callback === "function") {
+            setTimeout(() => callback(response), 0);
+          }
+          return Promise.resolve(response);
+        };
+        if (message?.type === "capabilities") {
+          window.__rfCapsReady = true;
+          log("capabilities → yt-dlp ready");
+          return respond({ ok: true, ytdlp: true, videoSites: true, quality: "1080" });
+        }
+        if (message?.type === "media:sync") {
+          return respond({ ok: true, items: [{ url: location.origin + "/media/extra.webm", kind: "video", title: "Server-detected clip" }] });
+        }
+        if (message?.type === "formats") {
+          formatsCalls += 1;
+          log("formats #" + formatsCalls + " → " + message.url);
+          if (params.get("fail") === "1" && formatsCalls === 1) {
+            return respond({ ok: false, error: "yt-dlp could not read this page." });
+          }
+          return respond({
+            ok: true,
+            title: "Big Buck Bunny - RapidFetch demo",
+            duration: 596,
+            formats: demoFormats
+          });
+        }
+        if (message?.type === "add") {
+          sent.push({ url: message.url, quality: message.quality || "auto" });
+          log("add → " + (message.quality || "auto") + " · " + message.url);
+          return respond({ ok: true });
+        }
+        if (message?.type === "show") {
+          log("show → app requested");
+          return respond({ ok: true });
+        }
+        return respond({ ok: true });
+      },
+      onMessage: { addListener(fn) { window.__rfListener = fn; } }
+    }
+  };
+</script>
+<script src="/extension/content.js"></script>
+<script>
+  // Headless screenshot helper: ?open=1 clicks the bar once capabilities load.
+  if (params.get("open") === "1") {
+    const timer = setInterval(() => {
+      const host = document.querySelector("#rapidfetch-floating-host");
+      const bar = host?.shadowRoot?.querySelector(".bar");
+      if (!bar || !window.__rfCapsReady) return;
+      clearInterval(timer);
+      bar.click();
+    }, 200);
+  }
+</script>
+</body>
+</html>

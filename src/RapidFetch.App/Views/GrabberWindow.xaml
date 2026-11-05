@@ -1,0 +1,154 @@
+<Window x:Class="RapidFetch.App.Views.GrabberWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Site grabber" Height="680" Width="880" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="CanResize" Background="{DynamicResource Bg}" ShowInTaskbar="False">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="44" ResizeBorderThickness="6" CornerRadius="0"
+                            GlassFrameThickness="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{DynamicResource Border}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{DynamicResource Surface}" MouseLeftButtonDown="Header_MouseDown">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="18,0,0,0">
+                    <TextBlock Text="Site grabber" FontWeight="SemiBold" />
+                    <TextBlock Text="crawl a site and collect every matching file" Style="{StaticResource Caption}"
+                               Margin="10,1,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+                <Button Content="&#xE8BB;" Style="{StaticResource IconButton}" Width="44" Height="44"
+                        HorizontalAlignment="Right" Click="Close_Click"
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True" />
+            </Grid>
+
+            <Border Grid.Row="1" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}"
+                    BorderThickness="0,1,0,1" Padding="18,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="14" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="14" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="START URL" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                        <TextBox x:Name="StartUrlBox" Margin="0,6,0,0" />
+                    </StackPanel>
+
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="DEPTH" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                            <TextBox x:Name="DepthBox" Text="3" Margin="0,6,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="MAX PAGES" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                            <TextBox x:Name="PagesBox" Text="200" Margin="0,6,0,0" />
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <Button x:Name="StartButton" Content="Start crawl" Style="{StaticResource PrimaryButton}"
+                                Click="Start_Click" MinWidth="110" />
+                        <Button x:Name="StopButton" Content="Stop" Margin="8,0,0,0" Click="Stop_Click" IsEnabled="False" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="300" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Margin="18,14">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <TextBlock x:Name="ResultHeader" Text="Found files" FontWeight="SemiBold" />
+                        <TextBlock x:Name="ProgressText" Text="Ready." HorizontalAlignment="Right"
+                                   Style="{StaticResource Caption}" />
+                    </Grid>
+
+                    <Border Grid.Row="1" Margin="0,10,0,0" Background="{DynamicResource Surface}"
+                            BorderBrush="{DynamicResource Border}" BorderThickness="1" CornerRadius="10" Padding="6">
+                        <ListBox x:Name="ResultsList" Background="Transparent" BorderThickness="0"
+                                 SelectionMode="Extended">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="4,3">
+                                        <TextBlock Text="{Binding Url}" FontSize="12" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding Page}" FontSize="10"
+                                                   Foreground="{DynamicResource Muted}" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,12,0,0">
+                        <Button Content="Add selected" Click="AddSelected_Click" />
+                        <Button Content="Add all" Style="{StaticResource PrimaryButton}" Margin="8,0,0,0" Click="AddAll_Click" />
+                        <Button Content="Clear" Style="{StaticResource GhostButton}" Margin="8,0,0,0" Click="Clear_Click" />
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Column="1" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}"
+                        BorderThickness="1,0,0,0" Padding="16">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="FILTERS" Style="{StaticResource Caption}" FontWeight="SemiBold" />
+                            <CheckBox x:Name="SameHostBox" Content="Stay on the same website" IsChecked="True" Margin="0,12,0,0" />
+                            <CheckBox x:Name="FollowBox" Content="Crawl HTML pages" IsChecked="True" Margin="0,10,0,0" />
+
+                            <TextBlock Text="File extensions" Style="{StaticResource Caption}" Margin="0,16,0,4" />
+                            <TextBox x:Name="ExtensionsBox" Text="zip;rar;7z;pdf;mp3;mp4;mkv;iso;exe;apk;docx;xlsx;pptx"
+                                     TextWrapping="Wrap" AcceptsReturn="True" Height="64" FontSize="11" />
+
+                            <TextBlock Text="Include pattern (regex)" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <TextBox x:Name="IncludeBox" FontSize="11" />
+
+                            <TextBlock Text="Exclude pattern (regex)" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <TextBox x:Name="ExcludeBox" FontSize="11" />
+
+                            <TextBlock Text="Delay between requests (ms)" Style="{StaticResource Caption}" Margin="0,14,0,4" />
+                            <TextBox x:Name="DelayBox" Text="120" />
+
+                            <Border Background="{DynamicResource SurfaceAlt}" CornerRadius="8" Padding="10" Margin="0,18,0,0">
+                                <TextBlock TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Muted}"
+                                           Text="The grabber only reads pages you point it at. Respect each site's terms and keep the delay generous." />
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="3" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}"
+                    BorderThickness="0,1,0,0">
+                <Grid Margin="18,0">
+                    <TextBlock x:Name="StatusText" Text="Waiting for a start URL." VerticalAlignment="Center"
+                               Style="{StaticResource Caption}" />
+                    <Button Content="Close" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Close_Click" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

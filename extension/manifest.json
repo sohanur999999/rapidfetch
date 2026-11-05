@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "RapidFetch - Free Download Manager",
+  "short_name": "RapidFetch",
+  "version": "1.0.0",
+  "description": "Download files and videos faster with segmented, resumable transfers. Free for life, no trial and no subscription.",
+  "minimum_chrome_version": "102",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw8EGXh0mKcqK7VPzyJqx4gmx1Ww1Pr4Lu9+uDzXqCj0T82jvehxNKtz0dr7RlmiEELP+ZrTv7OX/XwMUAKnqv07W0hiKDOYU+uMBEDfeT8V5XcDWrXxH6U/XfLg6M3DALrfGKRkOP/RXnvezc6H6F5xwJj7rc0MloXTbSg5diFBfQxGAI+WQo36UsTFi9VskD/cv5Pk3NraNWE52c+ozgqVH15K6fxiAKF7IleRU2vthH5S7TFDWhyFIEWS7XRu7tUoWmLXWdQXYBce0SW4OciqGKhbQWPwEj/AE0uHINw5usPlXglsfxy/cuSQY13FS7dLpC6mObfY4iRW7S+7K2QIDAQAB",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "RapidFetch",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "downloads",
+    "storage",
+    "contextMenus",
+    "webRequest",
+    "tabs",
+    "notifications",
+    "scripting",
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "commands": {
+    "toggle-capture": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Toggle automatic download capture"
+    }
+  }
+}
