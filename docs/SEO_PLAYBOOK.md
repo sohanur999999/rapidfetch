@@ -11,6 +11,10 @@ outrank established download managers on day one.
 The goal is to be the **most relevant and most trusted** listing for a small set
 of realistic queries, then improve rank as installs and ratings grow.
 
+**Current launch state:** the Chrome Web Store listing is pending. The live site
+and README offer the extension ZIP with manual install steps. The Store-specific
+copy below is ready for the day the listing can be published.
+
 ## Target keywords
 
 ### Primary
@@ -50,7 +54,8 @@ The first 132 characters matter most because they appear in search results.
 
 - Repository name: `rapidfetch`
 - Description: `Free download manager for Windows with a Chrome extension. Segmented and resumable downloads, HLS, media capture, batch queues, and optional yt-dlp support.`
-- Website: Chrome Web Store listing and GitHub Pages landing page.
+- Website: GitHub Pages landing page. Add the Chrome Web Store URL once the
+  listing is live.
 - Topics:
 
 ```text
@@ -82,11 +87,11 @@ media-downloader
 ### Week 1
 
 1. Publish the GitHub repository and release.
-2. Publish the Chrome Web Store listing.
-3. Publish the landing page and privacy policy.
-4. Test install, onboarding, capture, pause/resume, and uninstall in a clean
+2. Publish the landing page, privacy policy, and extension ZIP with manual
+   install steps. Add the Chrome Web Store listing when it is available.
+3. Test install, onboarding, capture, pause/resume, and uninstall in a clean
    Chrome profile.
-5. Ask 20–50 real users to try it. Do not buy reviews.
+4. Ask 20–50 real users to try it. Do not buy reviews.
 
 ### Week 2–4
 
@@ -146,7 +151,7 @@ Ask after a successful download:
 - Active users
 - Average rating and number of ratings
 - Support issues and permission complaints
-- Landing-page clicks to store and app downloads
+- Landing-page clicks to the extension ZIP and app downloads
 
 ## What not to do
 

@@ -14,6 +14,7 @@ extension.
 | GitHub release `v1.0.0` | Live with EXE, ZIP, extension ZIP and checksums |
 | Chrome Web Store developer account | **Not created yet** |
 | Chrome Web Store listing | **Not submitted** |
+| Public Chrome install path | Manual extension ZIP (Store listing pending) |
 
 ## 1. Create the developer account
 

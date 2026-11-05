@@ -1,7 +1,7 @@
 # RapidFetch
 
 [![Release](https://img.shields.io/github/v/release/sohanur999999/rapidfetch?color=3b82f6&label=release)](https://github.com/sohanur999999/rapidfetch/releases/latest)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Free%20Download%20Manager-34d399?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb)
+[![Chrome extension](https://img.shields.io/badge/Chrome%20extension-Manual%20ZIP%20install-3b82f6?logo=googlechrome&logoColor=white)](#chrome-extension-manual-install)
 [![License: MIT](https://img.shields.io/badge/license-MIT-22d3ee)](LICENSE)
 [![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-3b82f6?logo=windows&logoColor=white)](#install)
 
@@ -22,7 +22,8 @@ server or admin install.
 
 | Download | Link |
 | --- | --- |
-| Chrome extension | [Chrome Web Store](https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb) |
+| Chrome extension | [Manual ZIP install](#chrome-extension-manual-install) |
+| Chrome extension ZIP | [RapidFetch-Extension-1.0.0.zip](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip) |
 | Windows installer | [RapidFetch Setup 1.0.0](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Setup-1.0.0.exe) |
 | Portable EXE | [RapidFetch 1.0.0 standalone](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-1.0.0-standalone-win-x64.exe) |
 | Folder package | [RapidFetch 1.0.0 zip](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-1.0.0-win-x64.zip) |
@@ -38,9 +39,9 @@ detection, queues, speed limits, categories, backup/restore and the optional
 yt-dlp integration. There is no paid tier, no locked "Pro" feature, no trial
 clock, no subscription, no account and no activation server.
 
-If that ever changes, this README and the Chrome Web Store listing will say so
-before anything is paywalled. The **Free for life** claim applies only while all
-current core features remain free.
+If that ever changes, this README and the public download page will say so before
+anything is paywalled. The **Free for life** claim applies only while all current
+core features remain free.
 
 ## Highlights
 
@@ -126,20 +127,32 @@ Requirements: Windows 10 or 11, 64-bit. All builds are self-contained, so the
 .NET runtime is **not** required. Installation is per-user; no administrator
 rights are needed.
 
-### Chrome Web Store extension
+### Chrome extension (manual install)
 
-Install the Windows app first, then add the extension from the
-[Chrome Web Store](https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb).
-The store build uses the stable ID `lmbdeehijjekhepgoioomfgobpkgmlcb` and the
-same native messaging host as the bundled build.
+The Chrome Web Store listing is not live yet. Until it is, load the official
+extension package once in Chrome. Install the Windows app first (see
+[Setup app](#setup-app-recommended)) so the native messaging host is registered.
 
-You can also download the release ZIP and load it manually:
+1. Download
+   [RapidFetch-Extension-1.0.0.zip](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip).
+2. Extract the ZIP to a permanent folder. Do not select the ZIP itself. The
+   folder you select must contain `manifest.json` at its top level.
+3. Open `chrome://extensions` in Chrome, turn on **Developer mode**, click
+   **Load unpacked**, and select the extracted folder.
+4. Pin RapidFetch to the toolbar. The extension uses the stable ID
+   `lmbdeehijjekhepgoioomfgobpkgmlcb` and connects to the desktop app through the
+   native messaging host.
 
-1. Download `RapidFetch-Extension-1.0.0.zip` from the
-   [latest release](https://github.com/sohanur999999/rapidfetch/releases/latest).
-2. Extract it to a permanent folder.
-3. Open `chrome://extensions`, enable **Developer mode**, click **Load
-   unpacked**, and select the extracted folder containing `manifest.json`.
+If you used the setup app, you can skip the ZIP and load
+`%LOCALAPPDATA%\Programs\RapidFetch\extension` instead. That folder contains the
+same extension.
+
+Chrome shows a developer-mode reminder while an unpacked extension is loaded.
+That is expected for manual installs. Once the Chrome Web Store listing is
+available, this README will link to it. The extension itself is free today.
+
+> Chrome-branded builds ignore `--load-extension` on the command line. Use the
+> **Load unpacked** button, not a command-line flag.
 
 ### Setup app (recommended)
 
@@ -190,24 +203,18 @@ copy named `RapidFetch.exe` runs normally; `setup` in the file name (or
    ```
 
 3. Load the extension once in your browser:
-   - **Chrome / Brave / Vivaldi / Opera:** install it from the
-     [Chrome Web Store](https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb),
-     or load `%LOCALAPPDATA%\Programs\RapidFetch\extension` as an unpacked
-     extension.
-   - Edge: open `edge://extensions`, enable **Developer mode**, click
-     **Load unpacked**, and select
+   - **Chrome / Brave / Vivaldi / Opera:** open `chrome://extensions`, enable
+     **Developer mode**, click **Load unpacked**, and select
      `%LOCALAPPDATA%\Programs\RapidFetch\extension`.
+   - Edge: open `edge://extensions` and use the same **Load unpacked** flow.
 
    The extension has the stable ID `lmbdeehijjekhepgoioomfgobpkgmlcb`. Pin it to
-   the toolbar. Manual loading does not need a Chrome Web Store developer key.
+   the toolbar.
 
 4. Click any download link. RapidFetch intercepts `chrome.downloads`, cancels the
    browser copy and downloads through the app. If RapidFetch is not running, the
    native host starts it automatically. Reopening the browser does not re-add
    downloads that Chrome already finished.
-
-> Chrome-branded builds ignore `--load-extension` on the command line. Use the
-> **Load unpacked** button (or test with Edge), not a command-line flag.
 
 ### Standalone executable
 

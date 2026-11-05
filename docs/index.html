@@ -69,6 +69,15 @@
     }
     a { color: #93c5fd; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    code {
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: .9em;
+      background: rgba(148, 163, 184, .12);
+      border: 1px solid rgba(148, 163, 184, .15);
+      padding: 1px 5px;
+      border-radius: 5px;
+      overflow-wrap: anywhere;
+    }
     img { max-width: 100%; display: block; }
     .wrap { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
     .eyebrow {
@@ -163,6 +172,21 @@
 
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: step; }
     .step { position: relative; padding: 24px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--panel); }
+    .install-box {
+      margin-top: 22px; padding: 28px; border-radius: var(--radius);
+      border: 1px solid #2b4364;
+      background:
+        radial-gradient(620px 240px at 8% 0%, rgba(59, 130, 246, .16), transparent 70%),
+        linear-gradient(180deg, #0d1624, #0a111b);
+      display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px; align-items: start;
+    }
+    .install-box h3 { margin: 12px 0 8px; font-size: 23px; letter-spacing: -.025em; }
+    .install-box p { margin: 0 0 18px; color: var(--muted); font-size: 14.5px; }
+    .install-list { margin: 0; padding-left: 21px; display: grid; gap: 10px; color: var(--muted); font-size: 14.5px; }
+    .install-list li { padding-left: 3px; }
+    .install-list li::marker { color: var(--cyan); font-weight: 700; }
+    .install-list b { color: var(--text); font-weight: 600; }
+    .install-list code { color: #c7d7f4; }
     .step::before {
       counter-increment: step; content: counter(step);
       display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 14px;
@@ -219,6 +243,7 @@
       .stats { grid-template-columns: 1fr 1fr; }
       .grid-3, .gallery, .steps { grid-template-columns: 1fr 1fr; }
       .free { grid-template-columns: 1fr; padding: 30px; }
+      .install-box { grid-template-columns: 1fr; gap: 24px; }
       .nav-links { display: none; }
     }
     @media (max-width: 620px) {
@@ -267,15 +292,18 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
               Download for Windows
             </a>
-            <a class="btn btn-ghost" href="https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb">
+            <a class="btn btn-ghost" href="https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip" title="Download the extension ZIP, then load it from chrome://extensions">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8h8.2"/><path d="M9.2 13.7 5.1 20"/><path d="m14.3 13.9-4 7"/></svg>
-              Add to Chrome
+              Get extension ZIP
             </a>
           </div>
           <p class="meta">
             <span>Windows 10 / 11 · 64-bit</span>
             <span>Manifest V3 extension</span>
             <span>Version 1.0.0</span>
+          </p>
+          <p class="meta" style="margin-top:10px">
+            Chrome Web Store listing is not live yet. <a href="#install-extension">See the one-minute ZIP install steps.</a>
           </p>
         </div>
 
@@ -373,13 +401,28 @@
             <p>Download the free installer, run it as a normal user, and let it register the native messaging host. No admin rights required.</p>
           </div>
           <div class="step">
-            <h3>Add the Chrome extension</h3>
-            <p>Install from the Chrome Web Store and pin the toolbar icon. Automatic capture is on by default and can be toggled with Alt+Shift+R.</p>
+            <h3>Load the Chrome extension</h3>
+            <p>The Web Store listing is pending. Download the official ZIP and load it once from <code>chrome://extensions</code>. Exact steps are just below.</p>
           </div>
           <div class="step">
             <h3>Download at full speed</h3>
             <p>Click any file, video or link. RapidFetch opens the transfer in the desktop app, where you can pause, resume and schedule it.</p>
           </div>
+        </div>
+
+        <div class="install-box" id="install-extension">
+          <div>
+            <span class="eyebrow"><span class="dot"></span> Chrome extension ZIP</span>
+            <h3>Install it in about a minute</h3>
+            <p>This is the same extension package prepared for the Web Store. Chrome loads it from the extracted folder, so keep that folder in a permanent location.</p>
+            <a class="btn btn-primary btn-small" href="https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip">Download extension ZIP</a>
+          </div>
+          <ol class="install-list">
+            <li><b>Install the Windows app first.</b> Setup registers the native messaging host that connects Chrome to RapidFetch.</li>
+            <li><b>Extract the ZIP</b> to a permanent folder. It must contain <code>manifest.json</code> at the top level; do not select the ZIP itself.</li>
+            <li><b>Open <code>chrome://extensions</code></b>, enable <strong>Developer mode</strong>, click <strong>Load unpacked</strong>, and select the extracted folder.</li>
+            <li><b>Pin RapidFetch</b> to the toolbar and test a download link. A developer-mode reminder is normal for manual installs.</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -423,6 +466,10 @@
           <p>It is free for life. There is no paid tier, trial, subscription, registration key or account. Every core feature on this page is included in the free build. If that ever changes, this page and the listing will say so before anything is paywalled.</p>
         </details>
         <details class="faq">
+          <summary>Is RapidFetch on the Chrome Web Store?</summary>
+          <p>Not yet. The Web Store listing is still pending, so use the <a href="https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip">extension ZIP</a> for now: extract it, open <code>chrome://extensions</code>, enable <strong>Developer mode</strong>, click <strong>Load unpacked</strong>, and select the folder containing <code>manifest.json</code>. Chrome may show a developer-mode reminder while the unpacked extension is loaded; that is normal for a manual install and does not affect how RapidFetch works.</p>
+        </details>
+        <details class="faq">
           <summary>Does the Chrome extension work without the desktop app?</summary>
           <p>No. The extension is a companion: it captures downloads and media from Chrome and hands them to the RapidFetch desktop app on the same PC. Install the Windows app first, then the extension.</p>
         </details>
@@ -453,7 +500,7 @@
           <p>Install RapidFetch on Windows, add the extension, and let 32 connections do the work. Free for life.</p>
           <div class="cta-row">
             <a class="btn btn-primary" href="https://github.com/sohanur999999/rapidfetch/releases/latest">Download for Windows</a>
-            <a class="btn btn-ghost" href="https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb">Add to Chrome</a>
+            <a class="btn btn-ghost" href="https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip">Get extension ZIP</a>
           </div>
         </div>
       </div>
