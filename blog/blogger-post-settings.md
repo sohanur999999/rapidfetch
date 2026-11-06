@@ -1,5 +1,8 @@
 # BroBuddy Blogger post settings
 
+**Status:** Published on November 6, 2026 at
+<https://www.brobuddy.best/2026/11/rapidfetch-free-idm-alternative.html>.
+
 Use these exact values in the Blogger editor. The post body is in
 `blog/rapidfetch-free-idm-alternative-blogger.html`. Copy the whole file into the
 **HTML view**, not the Compose view.
@@ -10,20 +13,20 @@ Use these exact values in the Blogger editor. The post body is in
 | --- | --- |
 | Title | `RapidFetch: Free IDM Alternative for Windows and Chrome` |
 | Custom permalink | `rapidfetch-free-idm-alternative` |
-| Search description | `RapidFetch is a free IDM alternative for Windows and Chrome with segmented downloads, resume, HLS video capture, and no subscription. See how it compares.` |
+| Search description | `Free IDM alternative for Windows and Chrome with segmented downloads, resume, HLS video capture, and no subscription. See how it compares.` |
 | Labels | `IDM Alternative`, `Free Download Manager`, `Chrome Extension`, `Windows`, `Tech Help` |
 | Custom robots tags | Leave the default (`all, index, follow`) |
 | Author | Use the blog's normal author profile |
 | Comments | Leave the blog default |
 
-The expected public URL is:
+The published URL is:
 
 ```text
 https://www.brobuddy.best/2026/11/rapidfetch-free-idm-alternative.html
 ```
 
-Blogger may choose a different month segment depending on the publish date. The
-custom permalink above is the important part.
+Blogger fixed the month segment to the publish date. The custom permalink above
+is the part that matters.
 
 ## Featured image
 
@@ -83,6 +86,20 @@ URL also works and is already used in the post.
   stuffing.
 - Keep the “Last updated” date current when you edit the post. Freshness matters
   for software guides.
+- The live page was verified after publishing: HTTP 200, correct canonical URL,
+  correct meta description, one H1, 13 H2s, 15 H3s, three images, an 11-row
+  comparison table, and all five labels.
+- Blogger's search-description field is capped at 150 characters. The published
+  description is 138 characters; the earlier 154-character draft was shortened
+  so it would not be truncated.
+
+## Site issue to review separately
+
+The BroBuddy theme currently serves a full-screen “Continue” ad gate before the
+post content. It appears on the new post, existing posts, and the Blogger
+preview. It is not part of the RapidFetch draft, but it can hurt user experience
+and SEO because first-time visitors and crawlers may see an ad link before the
+article. Review the ad widget or theme script that injects it.
 
 ## Do not change without checking
 
