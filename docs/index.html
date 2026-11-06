@@ -13,11 +13,15 @@
   <meta property="og:title" content="RapidFetch — Free Download Manager for Windows &amp; Chrome" />
   <meta property="og:description" content="Segmented, resumable downloads with a native Chrome extension. Free for life — no trial, no subscription, no account." />
   <meta property="og:url" content="https://sohanur999999.github.io/rapidfetch/" />
-  <meta property="og:image" content="https://sohanur999999.github.io/rapidfetch/store-assets/social-preview-1280x640.png" />
+  <meta property="og:image" content="https://sohanur999999.github.io/rapidfetch/blog/assets/rapidfetch-free-idm-alternative-1200x630.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="RapidFetch — free IDM alternative for Windows and Chrome" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RapidFetch — Free Download Manager for Windows &amp; Chrome" />
   <meta name="twitter:description" content="Segmented, resumable downloads with a native Chrome extension. Free for life." />
-  <meta name="twitter:image" content="https://sohanur999999.github.io/rapidfetch/store-assets/social-preview-1280x640.png" />
+  <meta name="twitter:image" content="https://sohanur999999.github.io/rapidfetch/blog/assets/rapidfetch-free-idm-alternative-1200x630.png" />
+  <meta name="twitter:image:alt" content="RapidFetch — free IDM alternative for Windows and Chrome" />
   <link rel="icon" href="assets/icon128.png" />
   <link rel="apple-touch-icon" href="assets/icon128.png" />
 
@@ -78,7 +82,7 @@
       border-radius: 5px;
       overflow-wrap: anywhere;
     }
-    img { max-width: 100%; display: block; }
+    img { max-width: 100%; display: block; height: auto; }
     .wrap { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
@@ -136,7 +140,7 @@
     .shot-bar i:nth-child(1) { background: #f87171; }
     .shot-bar i:nth-child(2) { background: #fbbf24; }
     .shot-bar i:nth-child(3) { background: #34d399; }
-    .shot-bar span { margin-left: 8px; color: #6b7c96; font-size: 11.5px; letter-spacing: .02em; }
+    .shot-bar span { margin-left: 8px; color: #8b9db6; font-size: 11.5px; letter-spacing: .02em; }
 
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 42px 0 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--line); }
     .stat { background: var(--bg-soft); padding: 20px 18px; }
@@ -237,6 +241,52 @@
     .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
     .foot nav { display: flex; flex-wrap: wrap; gap: 20px; }
 
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .badge-alt {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 13px; border-radius: 999px;
+      border: 1px solid rgba(59, 130, 246, .42);
+      background: rgba(59, 130, 246, .12);
+      color: #bfdbfe; font-size: 12.5px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .badge-alt .dot { background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+
+    .video-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 42px; align-items: center; }
+    .video-copy p { color: var(--muted); font-size: 16.5px; margin: 0 0 18px; }
+    .video-points { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 10px; }
+    .video-points li { color: #c3cede; font-size: 14.5px; display: flex; gap: 9px; align-items: flex-start; }
+    .video-points li::before { content: "✓"; color: var(--green); font-weight: 700; }
+    .phone {
+      justify-self: center; width: 100%; max-width: 330px; padding: 10px;
+      border-radius: 30px; border: 1px solid #2a3a54;
+      background: linear-gradient(180deg, #101a29, #080d15);
+      box-shadow: var(--shadow);
+    }
+    .phone video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 21px; background: #000; }
+
+    .share-strip {
+      display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center;
+      padding: 34px; border-radius: 20px; border: 1px solid #2b4364;
+      background:
+        radial-gradient(620px 240px at 8% 0%, rgba(59, 130, 246, .16), transparent 70%),
+        linear-gradient(180deg, #0d1624, #0a111b);
+    }
+    .share-strip h2 { margin: 12px 0 8px; font-size: clamp(26px, 3vw, 34px); }
+    .share-strip p { margin: 0; color: var(--muted); font-size: 15px; }
+    .share-actions { display: flex; flex-wrap: wrap; gap: 9px; justify-content: flex-end; }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px;
+      border-radius: 9px; border: 1px solid var(--line); background: rgba(255, 255, 255, .04);
+      color: var(--text); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .share-btn:hover { border-color: #3a4f70; background: rgba(255, 255, 255, .07); text-decoration: none; }
+    .share-btn.copied { border-color: rgba(52, 211, 153, .55); color: #a7f3d0; background: rgba(52, 211, 153, .1); }
+    .share-btn svg { width: 15px; height: 15px; flex: none; }
+    .share-btn .y { font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+    .copy-status { width: 100%; margin: 2px 0 0; color: #a7f3d0; font-size: 12.5px; text-align: right; }
+
     @media (max-width: 940px) {
       .hero-grid { grid-template-columns: 1fr; gap: 34px; }
       .hero { padding-top: 48px; }
@@ -244,6 +294,11 @@
       .grid-3, .gallery, .steps { grid-template-columns: 1fr 1fr; }
       .free { grid-template-columns: 1fr; padding: 30px; }
       .install-box { grid-template-columns: 1fr; gap: 24px; }
+      .video-grid { grid-template-columns: 1fr; gap: 30px; }
+      .video-copy { order: 1; }
+      .phone { order: 2; }
+      .share-strip { grid-template-columns: 1fr; }
+      .share-actions { justify-content: flex-start; }
       .nav-links { display: none; }
     }
     @media (max-width: 620px) {
@@ -267,6 +322,7 @@
       </a>
       <nav class="nav-links" aria-label="Main">
         <a href="#features">Features</a>
+        <a href="#watch">Watch</a>
         <a href="#screenshots">Screenshots</a>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
@@ -280,7 +336,10 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow"><span class="dot"></span> Free for life · No subscription</span>
+          <div class="badge-row">
+            <span class="eyebrow"><span class="dot"></span> Free for life · No subscription</span>
+            <span class="badge-alt"><span class="dot"></span> Free IDM alternative</span>
+          </div>
           <h1>Free download manager for <span class="grad">Windows and Chrome.</span></h1>
           <p class="lead">
             RapidFetch takes over browser downloads and accelerates them with segmented,
@@ -389,6 +448,32 @@
       </div>
     </section>
 
+    <section id="watch">
+      <div class="wrap video-grid">
+        <div class="video-copy">
+          <span class="eyebrow"><span class="dot"></span> 15-second tour</span>
+          <h2>See the real UI before you install.</h2>
+          <p>No mockups. This is the actual Windows app and the media picker, captured for the launch teaser.</p>
+          <ul class="video-points">
+            <li>Up to 32 segmented connections, with a real single-stream fallback when a server ignores ranges.</li>
+            <li>Pause, close, reboot, resume — the <code>.part</code> file and segment map survive.</li>
+            <li>Video, audio and HLS capture from Chrome, handed to the desktop app.</li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#download">Download free</a>
+            <a class="btn btn-ghost" href="press.html">Press kit &amp; assets</a>
+          </div>
+        </div>
+        <div class="phone">
+          <video controls playsinline preload="metadata" poster="assets/poster-hook.jpg" width="1080" height="1920" aria-label="RapidFetch 15-second launch teaser">
+            <source src="assets/rapidfetch-teaser-1080x1920.mp4" type="video/mp4" />
+            <track kind="captions" src="assets/rapidfetch-teaser-1080x1920.srt" srclang="en" label="English" />
+            Your browser does not support the video tag. <a href="assets/rapidfetch-teaser-1080x1920.mp4">Download the teaser</a>.
+          </video>
+        </div>
+      </div>
+    </section>
+
     <section id="how">
       <div class="wrap">
         <div class="section-head">
@@ -466,6 +551,18 @@
           <p>It is free for life. There is no paid tier, trial, subscription, registration key or account. Every core feature on this page is included in the free build. If that ever changes, this page and the listing will say so before anything is paywalled.</p>
         </details>
         <details class="faq">
+          <summary>Why does Windows warn about the installer?</summary>
+          <p>The installer is not code-signed yet, so Windows SmartScreen may show “Unknown publisher” or “Windows protected your PC.” That means Windows cannot verify the publisher; it is not proof that the file is malicious. Compare the installer against the matching <code>.sha256</code> file on the <a href="https://github.com/sohanur999999/rapidfetch/releases/latest">release page</a>, or build from source. Do not disable antivirus or click through a warning from a source you do not trust.</p>
+        </details>
+        <details class="faq">
+          <summary>Is it faster than IDM?</summary>
+          <p>We have not published a benchmark against IDM, so we do not claim to be faster. RapidFetch can use up to 32 HTTP range connections per file when the server supports them, which can improve throughput on some servers. Results depend on the server, CDN, your connection and disk. Servers that ignore range requests fall back to a single stream.</p>
+        </details>
+        <details class="faq">
+          <summary>Why is it free? What is the catch?</summary>
+          <p>The current core feature set is the product, not a trial. There is no paid tier, account or activation server to fund, and the code is MIT-licensed. If a paid tier is ever added, the free core stays and this page will say so before anything is paywalled.</p>
+        </details>
+        <details class="faq">
           <summary>Is RapidFetch on the Chrome Web Store?</summary>
           <p>Not yet. The Web Store listing is still pending, so use the <a href="https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip">extension ZIP</a> for now: extract it, open <code>chrome://extensions</code>, enable <strong>Developer mode</strong>, click <strong>Load unpacked</strong>, and select the folder containing <code>manifest.json</code>. Chrome may show a developer-mode reminder while the unpacked extension is loaded; that is normal for a manual install and does not affect how RapidFetch works.</p>
         </details>
@@ -492,6 +589,41 @@
       </div>
     </section>
 
+    <section aria-labelledby="share-title">
+      <div class="wrap">
+        <div class="share-strip">
+          <div>
+            <span class="eyebrow"><span class="dot"></span> Pass it on</span>
+            <h2 id="share-title">Free is easier to share.</h2>
+            <p>Know someone still paying for a download manager? Send them the 15-second tour or the source. No referral links, no tracking.</p>
+          </div>
+          <div class="share-actions">
+            <a class="share-btn" href="https://twitter.com/intent/tweet?text=RapidFetch%20%E2%80%94%20a%20free%2C%20open-source%20download%20manager%20for%20Windows%20%2B%20Chrome.%20Segmented%2C%20resumable%20transfers.%20No%20trial%2C%20account%20or%20subscription.&amp;url=https%3A%2F%2Fsohanur999999.github.io%2Frapidfetch%2F" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">X</span> Twitter
+            </a>
+            <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsohanur999999.github.io%2Frapidfetch%2F" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true" style="font-weight:800">in</span> LinkedIn
+            </a>
+            <a class="share-btn" href="https://www.reddit.com/submit?url=https%3A%2F%2Fsohanur999999.github.io%2Frapidfetch%2F&amp;title=RapidFetch%20%E2%80%94%20free%20download%20manager%20for%20Windows%20%2B%20Chrome" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">r/</span> Reddit
+            </a>
+            <a class="share-btn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsohanur999999.github.io%2Frapidfetch%2F&amp;t=RapidFetch%20%E2%80%94%20free%20download%20manager%20for%20Windows%20%2B%20Chrome" target="_blank" rel="noopener noreferrer">
+              <span class="y" aria-hidden="true">Y</span> Hacker News
+            </a>
+            <button class="share-btn" type="button" id="copy-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+              Copy link
+            </button>
+            <a class="btn btn-primary btn-small" href="https://github.com/sohanur999999/rapidfetch">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+              Star on GitHub
+            </a>
+            <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section>
       <div class="wrap">
         <div class="final">
@@ -501,6 +633,10 @@
           <div class="cta-row">
             <a class="btn btn-primary" href="https://github.com/sohanur999999/rapidfetch/releases/latest">Download for Windows</a>
             <a class="btn btn-ghost" href="https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip">Get extension ZIP</a>
+            <a class="btn btn-ghost" href="https://github.com/sohanur999999/rapidfetch">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>
+              Star on GitHub
+            </a>
           </div>
         </div>
       </div>
@@ -517,6 +653,7 @@
         <div style="margin-top:8px">Free download manager for Windows and Chrome.</div>
       </div>
       <nav aria-label="Footer">
+        <a href="press.html">Press kit</a>
         <a href="privacy.html">Privacy</a>
         <a href="https://github.com/sohanur999999/rapidfetch">Source</a>
         <a href="https://github.com/sohanur999999/rapidfetch/issues">Support</a>
@@ -524,8 +661,76 @@
       </nav>
     </div>
     <div class="wrap" style="margin-top:22px">
-      <span>© 2026 RapidFetch. Use only for content you own or have permission to download.</span>
+      <span>© 2026 RapidFetch. Use only for content you own or have permission to download. Not affiliated with Tonec Inc. or Internet Download Manager.</span>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const button = document.getElementById('copy-link');
+      const status = document.getElementById('copy-status');
+      if (!button) return;
+      const url = 'https://sohanur999999.github.io/rapidfetch/';
+      let resetTimer = null;
+
+      function legacyCopy(text) {
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.top = '-1000px';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (error) { ok = false; }
+        area.remove();
+        return ok;
+      }
+
+      function reset() {
+        button.classList.remove('copied');
+        button.textContent = 'Copy link';
+        if (status) status.textContent = '';
+      }
+
+      function showCopied() {
+        button.classList.add('copied');
+        button.textContent = 'Copied';
+        if (status) status.textContent = 'Landing-page link copied to the clipboard.';
+        window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(reset, 2400);
+      }
+
+      function showManual() {
+        button.textContent = 'Copy failed';
+        if (status) status.textContent = 'Copy this link: ' + url;
+        window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(reset, 6000);
+      }
+
+      button.addEventListener('click', async function () {
+        let copied = legacyCopy(url);
+        if (!copied && navigator.clipboard && navigator.clipboard.writeText) {
+          try {
+            await Promise.race([
+              navigator.clipboard.writeText(url),
+              new Promise(function (_, reject) {
+                window.setTimeout(function () { reject(new Error('timeout')); }, 1200);
+              })
+            ]);
+            copied = true;
+          } catch (error) {
+            copied = false;
+          }
+        }
+        if (copied) {
+          showCopied();
+        } else {
+          showManual();
+        }
+      });
+    }());
+  </script>
 </body>
 </html>

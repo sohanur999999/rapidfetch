@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,180
+Still paying for a download manager?
+Free for life.
+
+2
+00:00:03,220 --> 00:00:06,380
+Pause. Close. Resume.
+Nothing restarts. Not even after a reboot.
+
+3
+00:00:06,420 --> 00:00:09,580
+Video and HLS capture,
+straight from Chrome.
+
+4
+00:00:09,620 --> 00:00:14,700
+RapidFetch.
+Free for life. Windows and Chrome.
+github.com/sohanur999999/rapidfetch

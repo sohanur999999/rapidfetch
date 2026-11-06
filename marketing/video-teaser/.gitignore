@@ -1,0 +1,5 @@
+# HyperFrames generated state and review output
+.hyperframes/
+node_modules/
+check.json
+snap.json

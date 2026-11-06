@@ -29,6 +29,9 @@ server or admin install.
 | Folder package | [RapidFetch 1.0.0 zip](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-1.0.0-win-x64.zip) |
 | Extension ZIP (unpacked) | [RapidFetch-Extension-1.0.0.zip](https://github.com/sohanur999999/rapidfetch/releases/latest/download/RapidFetch-Extension-1.0.0.zip) |
 | Landing page | [sohanur999999.github.io/rapidfetch](https://sohanur999999.github.io/rapidfetch/) |
+| Press kit and assets | [sohanur999999.github.io/rapidfetch/press.html](https://sohanur999999.github.io/rapidfetch/press.html) |
+| 15-second launch teaser | [Vertical MP4, 1080x1920](https://sohanur999999.github.io/rapidfetch/assets/rapidfetch-teaser-1080x1920.mp4) |
+| Free IDM alternative guide | [BroBuddy article](https://www.brobuddy.best/2026/11/rapidfetch-free-idm-alternative.html) |
 | Privacy policy | [PRIVACY.md](PRIVACY.md) |
 
 ## Free for life
@@ -126,6 +129,11 @@ and the GitHub social preview live in [`docs/store-assets`](docs/store-assets).
 Requirements: Windows 10 or 11, 64-bit. All builds are self-contained, so the
 .NET runtime is **not** required. Installation is per-user; no administrator
 rights are needed.
+
+> The installer is not code-signed yet, so Windows SmartScreen may show
+> "Unknown publisher." Compare the download with the matching `.sha256` file on
+> the release page, or build from source. Do not disable antivirus or click
+> through a warning from a source you do not trust.
 
 ### Chrome extension (manual install)
 

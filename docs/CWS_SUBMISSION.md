@@ -164,14 +164,16 @@ https://sohanur999999.github.io/rapidfetch/privacy.html
 4. Review usually takes one to three business days, but can take longer for broad
    host permissions and native messaging.
 
-The listing URL after approval will be:
+The listing URL after approval will use the extension ID below. It is **not
+live** until Google approves the submission; do not publish it before then.
 
 ```text
 https://chromewebstore.google.com/detail/lmbdeehijjekhepgoioomfgobpkgmlcb
 ```
 
-That URL is already used by the README, landing page, release notes and
-`docs/STORE_LISTING.md`.
+That URL is intentionally not linked from the README, landing page or release
+notes while the listing is pending. Add it only after the store page loads with
+the live item.
 
 ## 7. After approval
 
