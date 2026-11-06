@@ -61,12 +61,17 @@ Web Store listing.
 ## Publishing status
 
 Nothing in this kit has been posted to a third-party platform. The BroBuddy
-article is live. Locally prepared and ready to publish: the 14.7-second teaser,
-captions, posters, `docs/press.html`, the landing-page share strip, the
-"Free IDM alternative" badge, the SmartScreen/unsigned-installer FAQ and the
-GitHub star CTA. The GitHub release notes were corrected to remove a dead Chrome
-Web Store link; the listing is still pending and the extension remains a manual
-ZIP install.
+article is live. The site changes are live at:
+
+- Landing page: <https://sohanur999999.github.io/rapidfetch/>
+- Press kit: <https://sohanur999999.github.io/rapidfetch/press.html>
+- Teaser MP4: <https://sohanur999999.github.io/rapidfetch/assets/rapidfetch-teaser-1080x1920.mp4>
+- Press kit ZIP: <https://sohanur999999.github.io/rapidfetch/assets/rapidfetch-press-kit.zip>
+
+The landing and press pages score 100/100/100 in Lighthouse (accessibility,
+best practices, SEO). The GitHub release notes were corrected to remove a dead
+Chrome Web Store link; the listing is still pending and the extension remains a
+manual ZIP install.
 
 Posting to X, LinkedIn, Product Hunt, Hacker News, Reddit, YouTube or any
 directory needs the account owner's approval and access. Do not post on the
